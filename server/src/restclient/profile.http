@@ -1,0 +1,21 @@
+### ADD PROFILE PHOTO
+POST http://localhost:3900/users/3a847581-7889-4dba-912a-2f5a691d2dfd/profile-photo
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="profilePhoto"; filename="user-profile.jpg"
+Content-Type: image/jpeg
+
+< ./path/to/your/profile-photo.jpg
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+#UPDATE PROFILE PHOTO
+PUT http://localhost:3900/users/123e4567-e89b-12d3-a456-426614174000/profile-photo
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="profilePhoto"; filename="updated-avatar.jpg"
+Content-Type: image/jpeg
+
+< ./new-profile-photo.jpg
+------WebKitFormBoundary7MA4YWxkTrZu0gW--

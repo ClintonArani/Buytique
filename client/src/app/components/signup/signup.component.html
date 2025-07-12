@@ -1,0 +1,116 @@
+
+<div class="main d-flex justify-content-center">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="px-5 py-4 shadow-lg w-100 rounded" style="max-width: 500px;">
+    <div class="fs-1 d-flex justify-content-center fw-bold text-capitalize" style="color: #1cb367;">Signup</div>
+    
+    <!-- Success/Error Message -->
+    <div *ngIf="message" class="alert mt-3" [ngClass]="{'alert-success': messageType === 'success', 'alert-danger': messageType === 'error'}">
+        {{ message }}
+    </div>
+    <!-- First Name -->
+    <div class="form-group">
+      <label for="firstName">First Name</label>
+      <input 
+        type="text" 
+        class="form-control" 
+        id="firstName" 
+        formControlName="firstName" 
+        placeholder="Enter your First Name"
+        [ngClass]="{
+          'is-valid': registerForm.get('firstName')?.valid && registerForm.get('firstName')?.touched,
+          'is-invalid': registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched
+        }"
+        required>
+      <div class="valid-feedback">✅ Looks good!</div>
+      <div class="invalid-feedback">First Name is required and must be at least 2 characters.</div>
+    </div>
+
+    <!-- Last Name -->
+    <div class="form-group">
+      <label for="lastName">Last Name</label>
+      <input 
+        type="text" 
+        class="form-control" 
+        id="lastName" 
+        formControlName="lastName" 
+        placeholder="Enter your Last Name"
+        [ngClass]="{
+          'is-valid': registerForm.get('lastName')?.valid && registerForm.get('lastName')?.touched,
+          'is-invalid': registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched
+        }"
+        required>
+      <div class="valid-feedback">✅ Looks good!</div>
+      <div class="invalid-feedback">Last Name is required and must be at least 2 characters.</div>
+    </div>
+
+    <!-- Email -->
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input 
+        type="email" 
+        class="form-control" 
+        id="email" 
+        formControlName="email" 
+        placeholder="Enter your Email Address"
+        [ngClass]="{
+          'is-valid': registerForm.get('email')?.valid && registerForm.get('email')?.touched,
+          'is-invalid': registerForm.get('email')?.invalid && registerForm.get('email')?.touched
+        }"
+        required>
+      <div class="valid-feedback">✅ Email is valid!</div>
+      <div class="invalid-feedback">Enter a valid email address.</div>
+    </div>
+
+    <!-- Phone Number -->
+    <div class="form-group">
+      <label for="phoneNumber">Phone Number</label>
+      <input 
+        type="tel" 
+        class="form-control" 
+        id="phoneNumber" 
+        formControlName="phoneNumber" 
+        placeholder="Enter your Phone Number"
+        [ngClass]="{
+          'is-valid': registerForm.get('phoneNumber')?.valid && registerForm.get('phoneNumber')?.touched,
+          'is-invalid': registerForm.get('phoneNumber')?.invalid && registerForm.get('phoneNumber')?.touched
+        }"
+        required>
+      <div class="valid-feedback">✅ Phone number is valid!</div>
+      <div class="invalid-feedback">Phone number must be 10 digits.</div>
+    </div>
+
+    <!-- Password with Eye Icon -->
+    <div class="form-group">
+      <label for="password">Password</label>
+      <div class="input-group">
+        <input 
+          [type]="showPassword ? 'text' : 'password'" 
+          class="form-control" 
+          id="password" 
+          formControlName="password" 
+          placeholder="Enter your Password"
+          [ngClass]="{
+            'is-valid': registerForm.get('password')?.valid && registerForm.get('password')?.touched,
+            'is-invalid': registerForm.get('password')?.invalid && registerForm.get('password')?.touched
+          }"
+          required>
+        <button type="button" class="btn btn-outline-secondary" (click)="togglePasswordVisibility()">
+          <i class="fa" [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'"></i>
+        </button>
+      </div>
+      <div class="valid-feedback">✅ Password is strong!</div>
+      <div class="invalid-feedback">
+        <small *ngIf="registerForm.get('password')?.errors?.['required']">Password is required.</small>
+        <small *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters long.</small>
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn text-white fw-bold  mt-3 w-100" [disabled]="registerForm.invalid" style="background-color: #1cb367; border: none;">Register</button>
+
+    <!-- Login Link -->
+    <div class="text-center mt-2">
+      <span>Already have an account? <a href="/login" class="fw-bold" style="color: #1cb367;">Login here</a></span>
+    </div>
+  </form>
+</div>

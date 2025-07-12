@@ -1,0 +1,64 @@
+<div class="container mt-4">
+  <div class="card shadow">
+    <div class="card-header bg-primary text-white">
+      <h4 class="mb-0">Your Purchase History</h4>
+    </div>
+    <div class="card-body">
+      <!-- Loading State -->
+      <div *ngIf="isLoading" class="text-center py-4">
+        <div class="spinner-border text-primary" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+        <p class="mt-2">Loading your purchase history...</p>
+      </div>
+
+      <!-- Error State -->
+      <div *ngIf="!isLoading && errorMessage" class="alert alert-danger">
+        {{ errorMessage }}
+      </div>
+
+      <!-- Empty State -->
+      <div *ngIf="!isLoading && !errorMessage && purchaseHistory.length === 0" class="text-center py-4">
+        <i class="fas fa-history fa-3x text-muted mb-3"></i>
+        <h5>No Purchase History Found</h5>
+        <p>You haven't made any purchases yet.</p>
+      </div>
+
+      <!-- Data Table -->
+      <div *ngIf="!isLoading && purchaseHistory.length > 0" class="table-responsive">
+        <table class="table table-hover table-bordered">
+          <thead class="thead-light">
+            <tr>
+              <th>Product</th>
+              <th>Description</th>
+              <th class="text-right">Price</th>
+              <th class="text-right">Total Quantity</th>
+              <th class="text-right">Times Ordered</th>
+              <th>Last Purchased</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of purchaseHistory">
+              <td>
+                <div class="d-flex align-items-center">
+                  <img *ngIf="item.fullImagePath" 
+                       [src]="item.fullImagePath" 
+                       class="img-thumbnail mr-3" 
+                       style="width: 60px; height: 60px; object-fit: cover;" 
+                       [alt]="item.product_name"
+                       onerror="this.style.display='none'">
+                  <div>{{ item.product_name }}</div>
+                </div>
+              </td>
+              <td>{{ item.description }}</td>
+              <td class="text-right">{{ item.price | currency:'Ksh':'symbol':'1.2-2' }}</td>
+              <td class="text-right">{{ item.total_quantity_purchased }}</td>
+              <td class="text-right">{{ item.times_ordered }}</td>
+              <td>{{ formatDate(item.last_purchased_date) }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

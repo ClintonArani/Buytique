@@ -1,0 +1,58 @@
+### CREATE USER
+POST http://localhost:3900/users/create
+Content-Type: application/json
+{
+    "firstName": "Clinton",
+    "lastName": "Omari",
+    "phoneNumber": "0791736577",
+    "email": "clintonarani@gmail.com",
+    "password": "Clinton@123"
+}
+
+
+### GET ALL USERS
+GET http://localhost:3900/users/all-users
+Content-Type: application/json
+
+
+### LOGIN
+POST http://localhost:3900/auth/login
+Content-Type: application/json
+
+{
+    "email": "morineemaina@gmail.com",
+    "password": "Morine@123!"
+}
+
+
+### GET SINGLE USER
+GET http://localhost:3900/users/3a847581-7889-4dba-912a-2f5a691d2dfd
+Content-Type: application/json
+
+
+### SWITCH ROLES
+PUT http://localhost:3900/users/switch-role
+Content-Type: application/json
+
+{
+    "user_id": "3a847581-7889-4dba-912a-2f5a691d2dfd"
+}
+
+
+### UPDATE USER
+PATCH http://localhost:3900/users/update/3a847581-7889-4dba-912a-2f5a691d2dfd
+Content-Type: application/json
+
+{
+    "firstName": "Waruinu",
+    "lastName": "Maina",
+    "phoneNumber": "0795252233",
+    "email": "morineemaina@gmail.com",
+    "password": "Morine@123!"
+}
+
+
+### DELETE USER
+DELETE http://localhost:3900/users/delete/3a9d72c7-93cf-479e-8aee-f7eea3f92ed4
+Content-Type: application/json
+

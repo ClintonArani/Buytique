@@ -1,0 +1,103 @@
+<app-header></app-header>
+
+<!-- Recommended Products Section -->
+<!-- <div class="container mt-4">
+  <h3 class="mb-4">Recommended products for you, {{ userFullName }}</h3>
+  
+  <div *ngIf="isLoadingRecommended" class="text-center py-4">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="mt-2">Loading recommendations...</p>
+  </div>
+
+  <div *ngIf="recommendedError" class="alert alert-warning">
+    {{ recommendedError }}
+  </div>
+
+  <div class="row">
+    <div *ngFor="let product of recommendedProducts" class="col-md-3 col-sm-6 mb-4">
+      <div class="product-card border-0 shadow-lg" [routerLink]="['/product-details', product.id]" style="cursor: pointer;">
+        <img [src]="product.image_path" class="product-img" alt="{{ product.name }}" 
+             (error)="product.image_path = 'assets/placeholder-product.png'">
+        <div class="product-info">
+          <p class="category">{{ product.category_name }}</p>
+          <h5>{{ product.name }}</h5>
+          <p class="price">
+            {{ product.price | currency:'Ksh' }}
+            <span class="old-price" *ngIf="product.oldPrice">{{ product.oldPrice | currency:'Ksh' }}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="container mt-5">
+  <!-- Product Grid -->
+  <div class="row">
+    <h2>Product List</h2>
+    
+    <div *ngIf="isLoadingProducts" class="text-center py-4">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p class="mt-2">Loading products...</p>
+    </div>
+
+    <div *ngIf="productsError" class="alert alert-warning">
+      {{ productsError }}
+    </div>
+
+    <div class="row">
+      <div *ngFor="let product of paginatedProducts" class="col-md-3 col-sm-6 mb-4">
+        <div class="product-card border-0 shadow-lg" [routerLink]="['/product-details', product.id]" style="cursor: pointer;">
+          <img [src]="product.image_path" class="product-img" alt="{{ product.name }}"
+               (error)="product.image_path = 'assets/placeholder-product.png'">
+          <div class="product-info">
+            <p class="category">{{ product.category_name}}</p>
+            <h5>{{ product.name }}</h5>
+            <p class="price">
+              {{ product.price | currency:'Ksh' }}
+              <span class="old-price" *ngIf="product.oldPrice">{{ product.oldPrice | currency:'Ksh' }}</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pagination Controls -->
+  <div *ngIf="filteredProducts.length > 0" class="pagination-container text-center mt-4 mb-4">
+    <button class="btn btn-outline-primary mx-1" 
+            (click)="previousPage()" 
+            [disabled]="currentPage === 1">
+      « Previous
+    </button>
+    <button *ngFor="let page of totalPagesArray; let i = index"
+            class="btn mx-1" 
+            [class.btn-primary]="currentPage === i + 1"
+            [class.btn-outline-primary]="currentPage !== i + 1"
+            (click)="goToPage(i + 1)">
+      {{ i + 1 }}
+    </button>
+    <button class="btn btn-outline-primary mx-1" 
+            (click)="nextPage()" 
+            [disabled]="currentPage === totalPages">
+      Next »
+    </button>
+  </div>
+  
+  <!-- Chat Icon -->
+<div class="chatbot-icon" (click)="toggleChat()">
+  <img src="assets/chat.png" alt="Chat with us">
+</div>
+
+<!-- Chatbot Component -->
+<app-chatbot 
+  *ngIf="showChat" 
+  [isOpen]="showChat" 
+  (closed)="onChatClosed()">
+</app-chatbot>
+</div>
+<!-- <app-footer></app-footer> -->

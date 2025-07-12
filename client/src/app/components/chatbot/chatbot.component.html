@@ -1,0 +1,40 @@
+<div class="chatbot-wrapper" [class.visible]="isOpen">
+    <div class="chatbot-container">
+      <!-- Chat Header -->
+      <div class="chat-header">
+        <h5>Chat Assistant</h5>
+        <button class="close-btn" (click)="closeChat()">×</button>
+      </div>
+  
+      <!-- Message Container -->
+      <div #messageContainer class="message-container">
+        <div *ngFor="let message of chatMessages" 
+             class="message" 
+             [class.user-message]="message.isUser" 
+             [class.bot-message]="!message.isUser">
+          <div class="message-content">
+            <div class="message-text">{{ message.text }}</div>
+            <div class="message-time">{{ message.time | date:'shortTime' }}</div>
+          </div>
+        </div>
+        
+        <!-- Loading indicator -->
+        <div *ngIf="isLoading" class="loading-indicator">
+          <div class="spinner"></div>
+          <span>Thinking...</span>
+        </div>
+      </div>
+  
+      <!-- Input Area -->
+      <div class="input-area">
+        <input type="text" 
+               [(ngModel)]="userMessage" 
+               placeholder="Type your message..."
+               [disabled]="isLoading"
+               (keyup.enter)="sendMessage()">
+        <button (click)="sendMessage()" [disabled]="isLoading || !userMessage.trim()">
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
+    </div>
+  </div>

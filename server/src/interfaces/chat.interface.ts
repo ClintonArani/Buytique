@@ -1,0 +1,3 @@
+interface ChatbotResponse {
+    response: string;
+}

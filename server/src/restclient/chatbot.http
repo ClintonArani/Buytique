@@ -1,0 +1,8 @@
+### CHAT WITH COMPANY BOT
+POST http://localhost:3900/chatbot/ask
+Content-Type: application/json
+
+{
+    "message": "hi"
+}
+

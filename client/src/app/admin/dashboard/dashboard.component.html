@@ -1,0 +1,229 @@
+<div class="container-fluid">
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+    <p class="mt-2">Loading dashboard data...</p>
+  </div>
+
+  <!-- Dashboard Content -->
+  <div *ngIf="!isLoading">
+    
+    <!-- Summary Cards -->
+    <div class="row mt-3">
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow-lg border-0 h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Users</div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">{{totalUsers}}</div>
+              </div>
+              <div class="col-auto">
+                <i class="fas fa-users fa-2x text-gray-300"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow-lg border-0 h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total Products</div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">{{totalProducts}}</div>
+              </div>
+              <div class="col-auto">
+                <i class="fas fa-boxes fa-2x text-gray-300"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow-lg border-0 h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Active Users</div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">{{activeUsers}}</div>
+              </div>
+              <div class="col-auto">
+                <i class="fas fa-user-check fa-2x text-gray-300"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow-lg border-0 h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center ">
+              <div class="col mr-2 ">
+                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Total Orders</div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">{{totalOrders}}</div>
+              </div>
+              <div class="col-auto">
+                <i class="fas fa-shopping-cart fa-2x text-gray-300"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="row mb-4">
+      <!-- Order Status Chart -->
+      <div class="col-xl-6 col-lg-6">
+        <div class="card shadow-lg border-0 mb-4">
+          <div class="card-header py-3 bg-white border-0">
+            <h6 class="m-0 font-weight-bold text-primary">Order Status Distribution</h6>
+          </div>
+          <div class="card-body">
+            <div class="chart-container">
+              <canvas #orderStatusChart></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Monthly Sales Chart -->
+      <div class="col-xl-6 col-lg-6">
+        <div class="card shadow-lg border-0 mb-4">
+          <div class="card-header py-3 bg-white border-0">
+            <h6 class="m-0 font-weight-bold text-primary">Monthly Sales</h6>
+          </div>
+          <div class="card-body">
+            <div class="chart-container">
+              <canvas #monthlySalesChart></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Second Charts Row -->
+    <div class="row mb-4">
+      <!-- User Activity Chart -->
+      <div class="col-xl-6 col-lg-6">
+        <div class="card shadow-lg mb-4 border-0">
+          <div class="card-header py-3 bg-white border-0">
+            <h6 class="m-0 font-weight-bold text-primary">User Activity</h6>
+          </div>
+          <div class="card-body">
+            <div class="chart-container">
+              <canvas #userActivityChart></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Top Products Chart -->
+      <div class="col-xl-6 col-lg-6">
+        <div class="card shadow-lg border-0 mb-4">
+          <div class="card-header py-3 bg-white border-0">
+            <h6 class="m-0 font-weight-bold text-primary">Top Products by Revenue</h6>
+          </div>
+          <div class="card-body">
+            <div class="chart-container">
+              <canvas #topProductsChart></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="successMessage" class="alert alert-success mt-2">
+      {{successMessage}}
+    </div>
+
+    <!-- Recent Orders Table -->
+    <div class="card shadow-lg border-0 mb-4">
+      <div class="card-header py-3 bg-white border-0">
+        <h6 class="m-0 font-weight-bold text-primary">Recent Orders</h6>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered" width="100%" cellspacing="0">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let order of recentOrders; let i = index;">
+                <td>{{i + 1}}</td>
+                <td>{{order.customer}}</td>
+                <td>{{order.date}}</td>
+                <td>{{order.amount | currency:'Ksh':'symbol':'1.2-2'}}</td>
+               
+                <td>
+                  <span [ngClass]="{
+                    'badge badge-warning': order.status === 'pending',
+                    'badge badge-primary': order.status === 'Shipped',
+                    'badge badge-success': order.status === 'Delivered',
+                    'badge badge-danger': order.status === 'Cancelled'
+                  }">
+                    {{order.status | titlecase}}
+                  </span>
+                </td>
+                
+                <td>
+                  <div class="input-group">
+                    <select class="form-control form-control-sm custom-select" 
+                            (change)="updateStatus(order.order_id, $any($event.target).value)"
+                            [value]="order.status"><i class="fas fa-chevron-down"></i>
+                      <option [value]="order.status" selected disabled>{{order.status | titlecase}} (Current)</option>
+                      <option value="pending">Pending</option>
+                      <option value="Shipped">Shipped</option>
+                      <option value="Delivered">Delivered</option>
+                      <option value="Cancelled">Cancelled</option>
+                    </select>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Top Products Table -->
+    <div class="card shadow-lg mb-4 border-0">
+      <div class="card-header py-3 border-0 bg-white">
+        <h6 class="m-0 font-weight-bold text-primary">Top Selling Products</h6>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered" width="100%" cellspacing="0">
+            <thead>
+              <tr>
+                <th>Product Name</th>
+                <th>Units Sold</th>
+                <th>Revenue</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let product of topProducts">
+                <td>{{product.name}}</td>
+                <td>{{product.sales}}</td>
+                <td>{{product.revenue | currency:'Ksh':'symbol':'1.2-2'}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

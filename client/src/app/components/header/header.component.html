@@ -1,0 +1,87 @@
+<div class=" sticky-top">
+  <!-- Upper Section -->
+  <div class="px-4 d-flex justify-content-between align-items-center" style="background-color: #026c48;">
+    <!-- business logo -->
+    <h3 class="mb-0 text-white text-capitalize ">buytique</h3>
+    <!-- location -->
+    <div class="location d-flex flex-column mt-2">
+      <small class="text-white">Deliver to</small>
+      <span class="d-flex justify-content-center gap-1 fw-bold">
+        <i class="fas fa-location  text-white"></i>
+        <p class="text-white text-capitalize">kenya</p>
+      </span>
+    </div>
+    <!-- filtering -->
+    <div class="filter  bg-white rounded">
+      <select class="rounded-start" [(ngModel)]="selectedCategory" (change)="onCategoryChange()">
+        <option *ngFor="let category of categories" [value]="category.id">
+          {{ category.name }}
+        </option>
+      </select>
+      <div class="input-group">
+        <input 
+          type="text" 
+          class="" 
+          placeholder="buytique online com" 
+          [(ngModel)]="searchQuery"
+          (keyup.enter)="onSearch()" 
+        >
+        <div class="btn-search rounded-end">
+          <i class="fas fa-search text-white" (click)="onSearch()"></i>
+        </div>
+      </div>
+    </div>
+    <!-- country & language -->
+    <div class="lang d-flex justify-content-center align-items-center gap-1" >
+      <i class="fas fa-flag text-info"></i>
+      <select class="input-group lang text-white">
+        <option class="text-dark" value="language">lang</option>
+        <option class="text-dark" value="language">English</option>
+        <option class="text-dark" value="language">swahili</option>
+        <option class="text-dark" value="language">Chinise</option>
+        <option class="text-dark" value="language">French</option>
+      
+      </select>
+    </div>
+    <!-- account -->
+    <div class="account mt-3">
+      <span class="text-white d-flex gap-1" routerLink="/login">
+        <i class="fas fa-user-alt"></i>
+        <small class=" fw-bold " >Hello, sign in</small>
+      </span>
+      <p class="text-warning">{{userName}}</p>
+    </div>
+    <!-- status -->
+    <div class="status d-flex flex-column text-white text-capitalize mt-3">
+      <small>status</small>
+      <p class="fw-bold" routerLink="/info">& Orders</p>
+    </div>
+    <!-- shopping bag -->
+    <div class="cart mt-4 d-flex justify-content-center gap-1" routerLink="/cart">
+      <span class="d-flex flex-column align-items-center text-white position-relative">
+        <i class="fas fa-shopping-bag"></i>
+        <p class="position-absolute top-0 start-100 translate-middle  badge bg-danger rounded-pill" style="margin-left: 0.6rem;">{{cartItemCount}}</p>
+      </span>
+      <p class="text-capitalize fw-bold text-white">cart</p>
+    </div>
+  </div>
+
+  <!-- Middle Section -->
+  <div class="middle d-flex justify-content-start px-4 gap-4 pt-2" style="background-color: #075648;">
+    <div class="menu text-white d-flex gap-1 ">
+      <i class="fas fa-bars mt-1"></i>
+      <p class="text-capitalize fw-bold">all</p>
+    </div>
+    <div class="d-flex justify-content-between align-items-center">
+      <ul class="text-white list-unstyled d-flex justify-content-center align-items-center gap-3 text-capitalize">
+        <li routerLink="/home" class="  hover-text-primary">home</li>
+        <li routerLink="" class="">Today's Deals</li>
+        <li routerLink="" class="">Customer Service</li>
+        <li routerLink="/signup" class="">Registry</li>
+        <li routerLink="" class="">Gift Cards</li>
+        <li routerLink="" class="">Sell</li>
+      </ul>
+    </div>
+   
+  </div>
+</div>

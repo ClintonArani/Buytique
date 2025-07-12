@@ -1,0 +1,19 @@
+### LOGIN
+POST http://localhost:3900/auth/login
+Content-Type: application/json
+
+{
+    "email": "clintonarani@gmail.com",
+    "password": "Clinton@123"
+}
+
+
+### CHECK TOKEN DETAILS
+GET http://localhost:3900/auth/check-details
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRmZTA2MTk3LWEyMDItNGE3Ny04ZmM0LWIzNWZiNzllZDYwMiIsImZpcnN0TmFtZSI6Ik1vcmluZSIsImxhc3ROYW1lIjoiTWFpbmEiLCJlbWFpbCI6Im1vcmluZWVtYWluYUBnbWFpbC5jb20iLCJwcm9maWxlIjpudWxsLCJpc1VwZGF0ZWQiOmZhbHNlLCJ1cGRhdGVkQXQiOm51bGwsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc0MzM0NTU3OCwiZXhwIjoxNzQzMzUyNzc4fQ.6Oy39-MxCxsXUjAVBxSZhU7CmhUQMMyRQ30csf5GG-M
+
+### LOGOUT
+POST http://localhost:3900/auth/logout
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU3MmFjMGJhLTEyMDYtNDI5MS1iNzVmLTM2ZjRhZjYzOThlNSIsImZpcnN0TmFtZSI6IkFuYXN0YWNpYSIsImxhc3ROYW1lIjoiQ2hlcHRvbyIsImVtYWlsIjoiYW5hc3RhY2lhY2hlcHRvb0BnbWFpbC5jb20iLCJwcm9maWxlIjpudWxsLCJjb3ZlckltYWdlIjpudWxsLCJpc0NyZWF0ZWQiOmZhbHNlLCJpc1VwZGF0ZWRBdCI6ZmFsc2UsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzQwMzI5Njk1LCJleHAiOjE3NDAzMzY4OTV9._W0BOeLICC7J26dL3GgajyPnH4CBmL4646YYYYXmkmA

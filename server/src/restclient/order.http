@@ -1,0 +1,44 @@
+### CANCEL ORDER
+POST http://localhost:3900/orders/cancel/BD7746D6-7E7C-422B-9874-EEDFCE2150A2
+Content-Type: application/json
+
+### UPDATE ORDER STATUS
+PUT http://localhost:3900/orders/update-status/BD7746D6-7E7C-422B-9874-EEDFCE2150A2
+Content-Type: application/json
+
+{
+    "new_status": "pending"
+}
+
+### GET ALL ORDERS
+GET http://localhost:3900/orders/all
+Content-Type: application/json
+
+### TOP SELLING PRODUCTS 
+GET http://localhost:3900/orders/top-products?limit=5
+
+### RECENT ORDERS
+GET http://localhost:3900/orders/recent?limit=5
+
+### SALES OVERVIEW 
+GET http://localhost:3900/orders/sales-overview
+
+### GET USER ORDERS
+GET http://localhost:3900/orders/user/dfe06197-a202-4a77-8fc4-b35fb79ed602
+Content-Type: application/json
+
+### GET USER MONTHLY SPENDING
+GET http://localhost:3900/orders/user/dfe06197-a202-4a77-8fc4-b35fb79ed602/monthly-spending?months=6
+Content-Type: application/json
+
+### GET USER RECENT ORDERS
+GET http://localhost:3900/orders/user/dfe06197-a202-4a77-8fc4-b35fb79ed602/recent-orders?limit=5
+Content-Type: application/json
+
+### GET RECOMMENDED PRODUCTS
+GET http://localhost:3900/orders/user/dfe06197-a202-4a77-8fc4-b35fb79ed602/recommended-products?limit=4
+Content-Type: application/json
+
+### GET USER PURCHASE HISTORY
+GET http://localhost:3900/orders/user/dfe06197-a202-4a77-8fc4-b35fb79ed602/purchase-history
+Content-Type: application/json

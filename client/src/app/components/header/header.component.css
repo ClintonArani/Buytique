@@ -1,0 +1,47 @@
+ul li:hover{
+  text-decoration: underline;
+  text-decoration-color: green;
+}
+.filter{
+  width: 40rem;
+  height: 2rem;
+  display: flex;
+}
+.filter select{
+  background-color: #e6e6e6;
+  height: 2rem;
+  width: 9.24rem;
+  border: none;  
+}
+.filter select:focus{
+  outline: none;
+}
+.filter .input-group{
+  height: 2rem;
+  padding-left: 0.5rem;
+}
+.filter .input-group input{
+  border: none;
+  width: 27.8rem;
+}
+.filter .input-group input:focus{
+  outline: none;
+}
+.btn-search{
+  background-color: #a9176f;
+  width: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lang{
+  background: none;
+  border: none;
+  outline: none;
+}
+.account p{
+  margin-top: -5px;
+}
+.status p{
+  margin-top: -5px;
+}

@@ -1,0 +1,29 @@
+### ADD CATEGORY
+POST http://localhost:3900/categories/add
+Content-Type: application/json
+
+{
+    "name": "Electronics",
+    "description": "All electronic devices and accessories"
+}
+
+### GET ALL CATEGORIES
+GET http://localhost:3900/categories/all
+Content-Type: application/json
+
+### GET SINGLE CATEGORY
+GET http://localhost:3900/categories/23d07bff-5335-4bf5-a6dd-0cbfc1a79dc4
+Content-Type: application/json
+
+### UPDATE CATEGORY
+PUT http://localhost:3900/categories/update/23d07bff-5335-4bf5-a6dd-0cbfc1a79dc4
+Content-Type: application/json
+
+{
+    "name": "Electronics & Gadgets",
+    "description": "All electronic devices, gadgets, and accessories"
+}
+
+### DELETE CATEGORY
+DELETE http://localhost:3900/categories/delete/1a02fe6d-3b0c-4674-84f2-de9ae3bd769f
+Content-Type: application/json

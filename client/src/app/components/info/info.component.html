@@ -1,0 +1,84 @@
+<div class="dashboard-container">
+  <!-- Sidebar -->
+  <div class="sidebar pt-4" [class.active]="isSidebarVisible">
+    <ul class="sidebar-tabs">
+      <li routerLink="/info/dashboard" [class.active]="activeTab === 'overview'" (click)="setActiveTab('overview')">
+        <i class="fas fa-home"></i> Overview
+      </li>
+      <li (click)="history()" [class.active]="activeTab === 'history'">
+        <i class="fas fa-chart-line"></i> History
+      </li>
+      <li (click)="logout()">
+        <i class="fas fa-home"></i> Home
+      </li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content" [class.dark-mode]="isDarkMode" (click)="hideSidebarOnOutsideClick()">
+    <!-- Navbar -->
+    <nav class="navbar d-flex shadow-lg border-0 rounded">
+      <h4>Welcome {{userFullName}}</h4>
+      <div class="navbar-left">
+        <div class="menu-icon" (click)="toggleSidebar($event)" tabindex="0" aria-label="Toggle Sidebar">
+          <i class="fas fa-bars"></i>
+        </div>
+        <div class="search-bar">
+          <input type="text" placeholder="Search..." />
+          <i class="fas fa-search"></i>
+        </div>
+      </div>
+      <div class="navbar-right">
+        <div class="profile" (click)="openProfilePhotoModal()">
+          <div class="avatar-container">
+            <img [src]="userAvatar" alt="Profile Picture" class="profile-avatar" />
+          </div>
+          <span>{{userFullName}}</span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Profile Photo Modal -->
+    <div class="modal-overlay" *ngIf="showProfilePhotoModal" (click)="closeProfilePhotoModal()">
+      <div class="profile-photo-modal" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h3>{{userAvatar !== 'assets/image2.png' ? 'Update Profile Photo' : 'Add Profile Photo'}}</h3>
+          <button class="close-btn" (click)="closeProfilePhotoModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="photo-preview" *ngIf="previewUrl; else uploadPrompt">
+            <img [src]="previewUrl" alt="Selected Photo Preview">
+          </div>
+          <ng-template #uploadPrompt>
+            <div class="upload-prompt">
+              <i class="fas fa-camera"></i>
+              <p>Select a photo to upload</p>
+            </div>
+          </ng-template>
+          
+          <input type="file" #fileInput (change)="onFileSelected($event)" accept="image/*" style="display: none;" />
+          <button class="btn-select" (click)="fileInput.click()">
+            Select Photo
+          </button>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-cancel" (click)="closeProfilePhotoModal()">Cancel</button>
+          <button class="btn-upload" [disabled]="!selectedFile || isLoading" (click)="uploadProfilePhoto()">
+            <span *ngIf="!isLoading">{{userAvatar !== 'assets/image2.png' ? 'Update Photo' : 'Add Photo'}}</span>
+            <span *ngIf="isLoading">Uploading...</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Success Message -->
+    <div class="success-message" *ngIf="showSuccessMessage">
+      {{successMessage}}
+    </div>
+
+    <!-- Content Area -->
+    <div class="content-area">
+      <router-outlet/>
+    </div>
+  </div>
+</div>

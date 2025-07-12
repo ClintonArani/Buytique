@@ -1,0 +1,76 @@
+### ADD PRODUCT WITH IMAGE UPLOAD
+POST http://localhost:3900/products/add
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="name"
+
+morine clinton
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="description"
+
+A high-end smartphone with 128GB storage.
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="price"
+
+3000000
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="stock_quantity"
+
+1
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="category_id"
+
+5d196c4c-9826-4678-83bd-0df64e6a5d64
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="image"; filename="bill.jpg"
+Content-Type: image/jpeg
+
+< ./path/to/your/image.jpg
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+
+### GET ALL PRODUCTS
+GET http://localhost:3900/products/all
+Content-Type: application/json
+
+
+### GET SINGLE PRODUCT
+GET http://localhost:3900/products/4cc60cba-f53b-45bc-8ea9-3d5b65fd3fb5
+Content-Type: application/json
+
+
+### UPDATE PRODUCT WITH IMAGE UPLOAD
+PUT http://localhost:3900/products/update/e1f53b35-b7aa-4bb1-aeaf-d1e25d1cc32c
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="name"
+
+Dyson Supersonic Hair 
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="description"
+
+Fast drying, heat protection
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="price"
+
+2100
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="stock_quantity"
+
+50
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="category_id"
+
+be24f107-7a78-47b6-a86c-d023e073b798
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="image"; filename="Dyson Supersonic Hair Dryer.png"
+Content-Type: image/jpeg
+
+< ./path/to/your/image.jpg
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+### DELETE PRODUCT
+DELETE http://localhost:3900/products/delete/cb5bd29d-25a3-4cc5-9fbb-05f2e5d31b9d
+Content-Type: application/json

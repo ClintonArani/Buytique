@@ -1,0 +1,67 @@
+<app-header/>
+<div class="container mt-5">
+  <div *ngIf="cartMessage" class="alert alert-dismissible fade show" 
+       [ngClass]="{'alert-success': cartMessage.includes('added'), 'alert-danger': !cartMessage.includes('added')}">
+    {{ cartMessage }}
+    <button type="button" class="btn-close" (click)="cartMessage = ''"></button>
+  </div>
+
+  <div *ngIf="product">
+    <div class="row">
+      <div class="col-md-6">
+        <img [src]="product.image_path" class="product-img" alt="{{ product.name }}">
+      </div>
+      <div class="col-md-6">
+        <span class="d-flex align-items-center gap-2">
+          <p class="text-capitalize fw-bold">product Name:</p>
+          <p class="text-muted fs-5">{{ product.name }}</p>
+        </span>
+        <span class="d-flex align-items-center gap-2">
+          <p class="text-capitalize fw-bold">category:</p>
+          <p class="category">{{product.category_name }}</p>
+        </span>
+        <span class="d-flex gap-2">
+          <p class="fw-bold">product description:</p>
+          <p  style="width: 15rem;">{{product.description}}</p>
+        </span>
+        <span class="d-flex align-items-center gap-2">
+          <p class="fw-bold text-capitalize">price:</p>
+          <p class="price">{{product.price | currency:'Ksh':'symbol':'1.2-2' }}</p>
+        </span>
+        <span class="d-flex align-items-center gap-2">
+          <p class="text-capitalize fw-bold">available quantity:</p>
+          <p class="fw-bold" [ngClass]="{'text-success': product.stock_quantity > 0, 'text-danger': product.stock_quantity <= 0}">
+            {{product.stock_quantity}}
+          </p>
+        </span>
+        
+        <div class="quantity-selector mt-3 mb-3">
+          <label for="quantity" class="form-label">Quantity:</label>
+          <div class="input-group" style="width: 150px;">
+            <button class="btn btn-outline-secondary" type="button" (click)="decrementQuantity()">-</button>
+            <input type="number" class="form-control text-center" 
+                   [(ngModel)]="quantity" 
+                   (change)="validateQuantity()"
+                   min="1" 
+                   [max]="product.stock_quantity">
+            <button class="btn btn-outline-secondary" type="button" (click)="incrementQuantity()">+</button>
+          </div>
+        </div>
+        
+        <button class="btn btn-primary add-to-cart-btn" 
+                (click)="addToCart()"
+                [disabled]="isAddingToCart || product.stock_quantity <= 0">
+          <span *ngIf="!isAddingToCart">Add to Cart</span>
+          <span *ngIf="isAddingToCart">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Adding...
+          </span>
+        </button>
+        
+        <div *ngIf="product.stock_quantity <= 0" class="text-danger mt-2">
+          This product is currently out of stock
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

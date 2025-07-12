@@ -1,0 +1,176 @@
+<div class="container-fluid">
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+    <p class="mt-2">Loading your dashboard...</p>
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{errorMessage}}
+  </div>
+
+  <!-- Success Message -->
+  <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show">
+    {{successMessage}}
+    <button type="button" class="close" (click)="successMessage = ''">
+      <span>&times;</span>
+    </button>
+  </div>
+
+  <!-- Dashboard Content -->
+  <div *ngIf="!isLoading && !errorMessage">
+    <!-- Summary Cards -->
+    <div class="row mt-3">
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow-lg border-0 h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Orders</div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">{{totalOrders}}</div>
+              </div>
+              <div class="col-auto">
+                <i class="fas fa-shopping-bag fa-2x text-gray-300"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow-lg border-0 h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Pending Orders</div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">{{pendingOrders}}</div>
+              </div>
+              <div class="col-auto">
+                <i class="fas fa-clock fa-2x text-gray-300"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow-lg border-0 h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Delivered Orders</div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">{{deliveredOrders}}</div>
+              </div>
+              <div class="col-auto">
+                <i class="fas fa-check-circle fa-2x text-gray-300"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow-lg border-0 h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Total Spent</div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">{{totalSpent | currency:'Ksh':'symbol':'1.2-2'}}</div>
+              </div>
+              <div class="col-auto">
+                <i class="fas fa-wallet fa-2x text-gray-300"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="row mb-4">
+      <!-- Order Status Chart -->
+      <div class="col-xl-6 col-lg-6">
+        <div class="card shadow-lg border-0 mb-4">
+          <div class="card-header py-3 bg-white border-0">
+            <h6 class="m-0 font-weight-bold text-primary">Your Order Status</h6>
+          </div>
+          <div class="card-body">
+            <div class="chart-container">
+              <canvas #orderStatusChart *ngIf="recentOrders.length > 0"></canvas>
+              <div *ngIf="recentOrders.length === 0" class="text-center py-3">
+                <p>No order data available for chart</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Monthly Spending Chart -->
+      <div class="col-xl-6 col-lg-6">
+        <div class="card shadow-lg border-0 mb-4">
+          <div class="card-header py-3 bg-white border-0">
+            <h6 class="m-0 font-weight-bold text-primary">Your Monthly Spending</h6>
+          </div>
+          <div class="card-body">
+            <div class="chart-container">
+              <canvas #monthlySpendingChart *ngIf="monthlySpendingData.length > 0"></canvas>
+              <div *ngIf="monthlySpendingData.length === 0" class="text-center py-3">
+                <p>No spending data available for chart</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Orders Table -->
+    <div class="card shadow-lg border-0 mb-4">
+      <div class="card-header py-3 bg-white border-0">
+        <h6 class="m-0 font-weight-bold text-primary">Your Recent Orders</h6>
+      </div>
+      <div class="card-body">
+        <div *ngIf="recentOrders.length === 0" class="text-center py-3">
+          <p>No recent orders found</p>
+        </div>
+        <div *ngIf="recentOrders.length > 0" class="table-responsive">
+          <table class="table table-bordered" width="100%" cellspacing="0">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Date</th>
+                <th>Products</th>
+                <th>Amount</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let order of recentOrders; let i = index">
+                <td>{{i + 1}}</td>
+                <td>{{order.order_date | date:'mediumDate'}}</td>
+                <td>
+                  <div *ngFor="let item of order.order_items" class="mb-1">
+                    {{item.product_name}} <span class="text-muted">(x{{item.quantity}})</span>
+                  </div>
+                </td>
+                <td>{{order.total_price | currency:'Ksh':'symbol':'1.2-2'}}</td>
+                <td>
+                  <span [ngClass]="{
+                    'badge badge-warning': order.status === 'pending',
+                    'badge badge-primary': order.status === 'shipped',
+                    'badge badge-success': order.status === 'delivered',
+                    'badge badge-danger': order.status === 'Cancelled'
+                  }">
+                    {{order.status | titlecase}}
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

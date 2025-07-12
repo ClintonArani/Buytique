@@ -1,0 +1,129 @@
+<div class="container mt-3">
+    <h2>User Management</h2>
+      <!-- Success Message -->
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+  </div>
+
+  <!-- Confirmation Dialog -->
+  <div *ngIf="showConfirmation" class="confirmation-dialog">
+    <div class="confirmation-content">
+      <p>Are you sure you want to delete this user?</p>
+      <button class="btn btn-danger" (click)="confirmDelete()">Yes</button>
+      <button class="btn btn-secondary" (click)="cancelDelete()">No</button>
+    </div>
+  </div>
+    <button class="btn btn-primary mb-3" (click)="openAddUserModal()">Add User</button>
+  
+    <!-- User Table -->
+    <div class="table-responsive ">
+      <table class="table table-bordered table-striped ">
+        <thead>
+          <tr>
+            <th></th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Status</th>
+            <th>Role</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of getPaginatedUsers(); let i = index">
+            <td>{{ (currentPage - 1) * itemsPerPage + i + 1}}</td>
+            <td>{{ user.firstName }}</td>
+            <td>{{ user.lastName }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.phoneNumber }}</td>
+            <td>
+                <span [ngClass]="{'status-active': user.isActive, 'status-inactive': !user.isActive}">
+                  {{ user.isActive ? 'Active' : 'Inactive' }}
+                </span>
+              </td>
+            <td>
+              <select class="form-control" [(ngModel)]="user.role" (change)="updateUserRole(user)">
+                <option value="admin">Admin</option>
+                <option value="user">User</option>
+              </select>
+            </td>
+            <td>
+              <i class="fas fa-edit m-1 pt-2 text-primary" (click)="openEditUserModal(user)"></i>
+              <i class="fas fa-trash-alt -4 m-1 p-2" style="color:#ff0000" (click)="confirmDeleteUser(user)"></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+      <!-- Pagination Controls -->
+  <div class="pagination-controls">
+    <button class="btn text-white" style="background-color: #ff0000;" (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+    <span>Page {{ currentPage }} of {{ totalPages }}</span>
+    <button class="btn text-white" style="background-color: #ff0000;" (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+  </div>
+  
+    <!-- Add/Edit User Modal -->
+<div class="modal-overlay" *ngIf="isModalOpen">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{ isEditMode ? 'Edit User' : 'Add User' }}</h5>
+          <button type="button" class="close" (click)="closeModal()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <div class="form-group col-md-6">
+                  <label for="firstName">First Name</label>
+                  <input type="text" class="form-control" id="firstName" formControlName="firstName">
+                  <div *ngIf="userForm.get('firstName')?.invalid && userForm.get('firstName')?.touched" class="text-danger">
+                    First Name is required.
+                  </div>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="lastName">Last Name</label>
+                  <input type="text" class="form-control" id="lastName" formControlName="lastName">
+                  <div *ngIf="userForm.get('lastName')?.invalid && userForm.get('lastName')?.touched" class="text-danger">
+                    Last Name is required.
+                  </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                  <label for="email">Email</label>
+                  <input type="email" class="form-control" id="email" formControlName="email">
+                  <div *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched" class="text-danger">
+                    Please enter a valid email.
+                  </div>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="phoneNumber">Phone Number</label>
+                  <input type="text" class="form-control" id="phoneNumber" formControlName="phoneNumber">
+                  <div *ngIf="userForm.get('phoneNumber')?.invalid && userForm.get('phoneNumber')?.touched" class="text-danger">
+                    Phone Number is required.
+                  </div>
+                </div>
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" class="form-control" id="password" formControlName="password">
+              <div *ngIf="userForm.get('password')?.invalid && userForm.get('password')?.touched" class="text-danger">
+                Password is required and must be at least 6 characters long.
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+              <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">
+                {{ isEditMode ? 'Update' : 'Add' }} User
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
